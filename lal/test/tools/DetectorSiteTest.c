@@ -346,6 +346,13 @@ int main( int argc, char *argv[] )
     return code;
   }
 
+  printf("Checking LIO2...\n");
+  cachedDetector = lalCachedDetectors[LALDetectorIndexLIO2DIFF];
+  if ( ( code = CheckDetector( &status, &cachedDetector ) ) )
+  {
+    return code;
+  }
+
   /*
   printf("Checking trivial detector...\n");
 

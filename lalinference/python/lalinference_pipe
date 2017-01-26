@@ -1,0 +1,8 @@
+#!/bin/sh
+pypath="/home/saleem/lalvirtual/src/lalsuite/lalinference/python:/home/saleem/lalvirtual/src/lalsuite/lalinference/python:/home/saleem/lalvirtual/src/lalsuite/lalxml/python:/home/saleem/lalvirtual/src/lalsuite/lalburst/python:/home/saleem/lalvirtual/src/lalsuite/lalpulsar/python:/home/saleem/lalvirtual/src/lalsuite/lalinspiral/python:/home/saleem/lalvirtual/src/lalsuite/lalsimulation/python:/home/saleem/lalvirtual/src/lalsuite/lalframe/python:/home/saleem/lalvirtual/src/lalsuite/lalmetaio/python:/home/saleem/lalvirtual/src/lalsuite/lal/python"
+pyscript="/home/saleem/lalvirtual/src/lalsuite/lalinference/python/lalinference_pipe.py"
+PYTHONPATH=`echo "${PYTHONPATH}" | /bin/sed -e "s|${pypath}:||g;"`
+PYTHONPATH="${pypath}:${PYTHONPATH}"
+export PYTHONPATH
+exec /usr/bin/python "${pyscript}" "$@"
+exit 1
