@@ -511,24 +511,24 @@ void LALCreateDetector( LALStatus *status, LALDetector *output, const LALFrDetec
  */
 #define LAL_LIO_4K_DETECTOR_NAME                 "LIO_4k" /**< LIO_4K detector name string */
 #define LAL_LIO_4K_DETECTOR_PREFIX               "I1"    /**< LIO_4K detector prefix string */
-#define LAL_LIO_4K_DETECTOR_LONGITUDE_RAD        -1.58430937078   /**< LIO_4K vertex longitude (rad; equal to 77°13'25.2") */
-#define LAL_LIO_4K_DETECTOR_LATITUDE_RAD         0.53342313506  /**< LIO_4K vertex latitude (rad; equal to 19°44'55") */
-#define LAL_LIO_4K_DETECTOR_ELEVATION_SI         -6.574	/**< LIO_4K vertex elevation (m) */
+#define LAL_LIO_4K_DETECTOR_LONGITUDE_RAD        1.3478   /**< LIO_4K vertex longitude (rad; equal to 77°13'25.2") */
+#define LAL_LIO_4K_DETECTOR_LATITUDE_RAD         0.3447   /**< LIO_4K vertex latitude (rad; equal to 19°44'55") */
+#define LAL_LIO_4K_DETECTOR_ELEVATION_SI         300.0  /**< LIO_4K vertex elevation (m) */
 #define LAL_LIO_4K_DETECTOR_ARM_X_AZIMUTH_RAD    1.5707963705062866   /**< LIO_4K x arm azimuth (rad) */
-#define LAL_LIO_4K_DETECTOR_ARM_Y_AZIMUTH_RAD    4.40317772346  /**< LIO_4K y arm azimuth (rad) */
-#define LAL_LIO_4K_DETECTOR_ARM_X_ALTITUDE_RAD   -0.00031210000   /**< LIO_4K x arm altitude (rad) */
-#define LAL_LIO_4K_DETECTOR_ARM_Y_ALTITUDE_RAD   -0.00061070000   /**< LIO_4K y arm altitude (rad) */
-#define LAL_LIO_4K_DETECTOR_ARM_X_MIDPOINT_SI    1997.57500000000       /**< LIO_4K x arm midpoint (m) */
-#define LAL_LIO_4K_DETECTOR_ARM_Y_MIDPOINT_SI    1997.57500000000        /**< LIO_4K y arm midpoint (m) */
-#define LAL_LIO_4K_VERTEX_LOCATION_X_SI          -7.42760447238e+04      /**< LIO_4K x-component of vertex location in Earth-centered frame (m) */
-#define LAL_LIO_4K_VERTEX_LOCATION_Y_SI          -5.49628371971e+06       /**< LIO_4K y-component of vertex location in Earth-centered frame (m) */
-#define LAL_LIO_4K_VERTEX_LOCATION_Z_SI          3.22425701744e+06      /**< LIO_4K z-component of vertex location in Earth-centered frame (m) */
-#define LAL_LIO_4K_ARM_X_DIRECTION_X            -0.95457412153  /**< LIO_4K x-component of unit vector pointing along x arm in Earth-centered frame */
-#define LAL_LIO_4K_ARM_X_DIRECTION_Y             -0.14158077340   /**< LIO_4K y-component of unit vector pointing along x arm in Earth-centered frame */
-#define LAL_LIO_4K_ARM_X_DIRECTION_Z            -0.26218911324 /**< LIO_4K z-component of unit vector pointing along x arm in Earth-centered frame */
-#define LAL_LIO_4K_ARM_Y_DIRECTION_X             0.29774156894  /**< LIO_4K x-component of unit vector pointing along y arm in Earth-centered frame */
-#define LAL_LIO_4K_ARM_Y_DIRECTION_Y            -0.48791033647   /**< LIO_4K y-component of unit vector pointing along y arm in Earth-centered frame */
-#define LAL_LIO_4K_ARM_Y_DIRECTION_Z             -0.82054461286  /**< LIO_4K z-component of unit vector pointing along y arm in Earth-centered frame */
+#define LAL_LIO_4K_DETECTOR_ARM_Y_AZIMUTH_RAD    0.0   /**< LIO_4K y arm azimuth (rad) */
+#define LAL_LIO_4K_DETECTOR_ARM_X_ALTITUDE_RAD   0.0   /**< LIO_4K x arm altitude (rad) */
+#define LAL_LIO_4K_DETECTOR_ARM_Y_ALTITUDE_RAD   0.0   /**< LIO_4K y arm altitude (rad) */
+#define LAL_LIO_4K_DETECTOR_ARM_X_MIDPOINT_SI    2000.00000000000        /**< LIO_4K x arm midpoint (m) */
+#define LAL_LIO_4K_DETECTOR_ARM_Y_MIDPOINT_SI    2000.00000000000        /**< LIO_4K y arm midpoint (m) */
+#define LAL_LIO_4K_VERTEX_LOCATION_X_SI          1328140.1247480197       /**< LIO_4K x-component of vertex location in Earth-centered frame (m) */
+#define LAL_LIO_4K_VERTEX_LOCATION_Y_SI          5856831.1187494537       /**< LIO_4K y-component of vertex location in Earth-centered frame (m) */
+#define LAL_LIO_4K_VERTEX_LOCATION_Z_SI          2141755.8715670863       /**< LIO_4K z-component of vertex location in Earth-centered frame (m) */
+#define LAL_LIO_4K_ARM_X_DIRECTION_X            -0.97137211696956793  /**< LIO_4K x-component of unit vector pointing along x arm in Earth-centered frame */
+#define LAL_LIO_4K_ARM_X_DIRECTION_Y             0.23440153808984004   /**< LIO_4K y-component of unit vector pointing along x arm in Earth-centered frame */
+#define LAL_LIO_4K_ARM_X_DIRECTION_Z            -0.0386280897169047 /**< LIO_4K z-component of unit vector pointing along x arm in Earth-centered frame */
+#define LAL_LIO_4K_ARM_Y_DIRECTION_X             0.11422013068821706  /**< LIO_4K x-component of unit vector pointing along y arm in Earth-centered frame */
+#define LAL_LIO_4K_ARM_Y_DIRECTION_Y             0.31824563950926749   /**< LIO_4K y-component of unit vector pointing along y arm in Earth-centered frame */
+#define LAL_LIO_4K_ARM_Y_DIRECTION_Z            -0.94110226579203604  /**< LIO_4K z-component of unit vector pointing along y arm in Earth-centered frame */
 /*@}*/
 
 /**
