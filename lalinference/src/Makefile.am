@@ -73,9 +73,24 @@ liblalinference_la_SOURCES = \
 	$(XMLSRC)
 nodist_liblalinference_la_SOURCES = LALInferenceBuildInfo.c
 
+<<<<<<< HEAD
 liblalinference_la_CFLAGS = $(AM_CFLAGS) $(HDF5_CFLAGS)
 liblalinference_la_CPPFLAGS = $(AM_CPPFLAGS) $(HDF5_CPPFLAGS)
 liblalinference_la_LDFLAGS = $(AM_LDFLAGS) $(HDF5_LDFLAGS) $(HDF5_LIBS) -version-info $(LIBVERSION)
+=======
+nodist_liblalinference_la_SOURCES = \
+	LALInferenceBuildInfoHeader.h \
+	LALInferenceVCSInfo.c \
+	$(END_OF_LIST)
+
+noinst_HEADERS = six.h
+
+liblalinference_la_CFLAGS = $(AM_CFLAGS) $(HDF5_CFLAGS)
+liblalinference_la_CPPFLAGS = $(AM_CPPFLAGS) $(HDF5_CPPFLAGS)
+liblalinference_la_LDFLAGS = $(AM_LDFLAGS) $(HDF5_LDFLAGS) $(HDF5_LIBS) -version-info $(LIBVERSION)
+
+LDADD = liblalinference.la
+>>>>>>> 89f16f7... Do not use $(..._la_LIBADD) to link against external libraries
 
 bin_PROGRAMS = \
 	lalinference_nest \

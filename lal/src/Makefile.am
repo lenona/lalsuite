@@ -34,9 +34,13 @@ liblal_la_SOURCES = \
 	$(END_OF_LIST)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 nodist_liblal_la_SOURCES = LALBuildInfo.c
 
 liblal_la_DEPENDENCIES = \
+=======
+EXTRA_liblal_la_DEPENDENCIES = \
+>>>>>>> 89f16f7... Do not use $(..._la_LIBADD) to link against external libraries
 =======
 EXTRA_liblal_la_DEPENDENCIES = \
 >>>>>>> 89f16f7... Do not use $(..._la_LIBADD) to link against external libraries
