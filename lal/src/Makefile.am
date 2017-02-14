@@ -33,9 +33,13 @@ liblal_la_SOURCES = \
 	LALVCSInfo.c \
 	$(END_OF_LIST)
 
+<<<<<<< HEAD
 nodist_liblal_la_SOURCES = LALBuildInfo.c
 
 liblal_la_DEPENDENCIES = \
+=======
+EXTRA_liblal_la_DEPENDENCIES = \
+>>>>>>> 89f16f7... Do not use $(..._la_LIBADD) to link against external libraries
 	std/libstd.la \
 	tools/libtools.la \
 	factories/libfactories.la \
@@ -50,8 +54,7 @@ liblal_la_DEPENDENCIES = \
 	noisemodels/libnoisemodels.la \
 	$(END_OF_LIST)
 
-liblal_la_LIBADD = $(liblal_la_DEPENDENCIES)
-liblal_la_LDFLAGS = $(AM_LDFLAGS) -version-info $(LIBVERSION)
+liblal_la_LDFLAGS = $(EXTRA_liblal_la_DEPENDENCIES) $(AM_LDFLAGS) -version-info $(LIBVERSION)
 
 EXTRA_DIST = \
 	config.h.in \
@@ -61,8 +64,15 @@ EXTRA_DIST = \
 DISTCLEANFILES = config.h
 
 vcs_info_sources = LALVCSInfoHeader.h
+<<<<<<< HEAD
 build_info_source = LALBuildInfo.c
 $(build_info_source): $(liblal_la_DEPENDENCIES)
+=======
+build_info_source = LALBuildInfoHeader.h
+build_info_dependencies = $(EXTRA_liblal_la_DEPENDENCIES)
+
+LDADD = liblal.la
+>>>>>>> 89f16f7... Do not use $(..._la_LIBADD) to link against external libraries
 
 bin_PROGRAMS = \
 	lal-simd-detect \

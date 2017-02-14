@@ -16,6 +16,16 @@ pymodule_PYTHON = \
 	timeslides.py \
 	$(END_OF_LIST)
 
+<<<<<<< HEAD
+=======
+pkgpython_LTLIBRARIES = \
+	cs_gamma.la
+cs_gamma_la_SOURCES = cs_gamma.c
+cs_gamma_la_CPPFLAGS = $(AM_CPPFLAGS) $(CPPFLAGS) $(PYTHON_CPPFLAGS) -I$(top_srcdir)/src
+cs_gamma_la_CFLAGS = $(AM_CFLAGS) $(CFLAGS) $(GSL_CFLAGS) $(LAL_CFLAGS) -Wno-cast-qual
+cs_gamma_la_LDFLAGS = $(top_builddir)/src/liblalburst.la $(AM_LDFLAGS) $(LIBS) $(GSL_LIBS) $(LAL_LIBS) $(PYTHON_LIBS) -module -avoid-version
+
+>>>>>>> 89f16f7... Do not use $(..._la_LIBADD) to link against external libraries
 endif
 
 #pkgpython_LTLIBRARIES = \
