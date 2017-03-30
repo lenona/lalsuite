@@ -1949,8 +1949,8 @@ int XLALSimInspiralFD(
     double chirplen, deltaT;
     int chirplen_exp;
     int retval;
-    printf("generating waveform\n")
-    printf("%f\n",extra_cycles)
+    printf("generating waveform\n");
+    printf("%f\n",extra_cycles);
     /* adjust the reference frequency for certain precessing approximants:
      * if that approximate interprets f_ref==0 to be f_min, set f_ref=f_min;
      * otherwise do nothing */
