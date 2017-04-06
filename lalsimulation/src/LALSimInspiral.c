@@ -49,7 +49,7 @@
 #else
 #define UNUSED
 #endif
-
+fprintf(stderr,"here4");
 /**
  * (Twice) the highest known PN order of amplitude correction for
  * non-precessing binaries.
@@ -153,6 +153,7 @@ static const char *lalSimulationApproximantNames[] = {
     INITIALIZE_NAME(SpinTaylorT2Fourier),
     INITIALIZE_NAME(SpinDominatedWf),
     INITIALIZE_NAME(NR_hdf5),
+    fprintf(stderr,"here5");
 };
 #undef INITIALIZE_NAME
 
@@ -167,6 +168,8 @@ static const char *lalSimulationPNOrderNames[] = {
     [LAL_PNORDER_THREE]             = "threePN",
     [LAL_PNORDER_THREE_POINT_FIVE]  = "threePointFivePN",
     [LAL_PNORDER_PSEUDO_FOUR]       = "pseudoFourPN",
+    fprintf(stderr,"here6");
+
 };
 
 /* TODO: UPDATE ME WHENEVER A NEW TAPER IS ADDED */
@@ -175,6 +178,8 @@ static const char *lalSimulationTaperNames[] = {
     [LAL_SIM_INSPIRAL_TAPER_START]      = "TAPER_START",
     [LAL_SIM_INSPIRAL_TAPER_END]        = "TAPER_END",
     [LAL_SIM_INSPIRAL_TAPER_STARTEND]   = "TAPER_STARTEND",
+    fprintf(stderr,"here7");
+
 };
 
 /* TODO: UPDATE ME WHENEVER A NEW FRAME AXIS IS ADDED */
@@ -240,6 +245,8 @@ static int delete_substring_in_list_from_string(char *string, const char *list[]
         string[longest_offset + i] = '\b';
 
     return longest_position;
+     fprintf(stderr,"here10");
+
 }
 
 
@@ -265,9 +272,14 @@ static double fixReferenceFrequency(const double f_ref, const double f_min, cons
             return f_min;
         default:
             break;
+    fprintf(stderr,"here11");
+
         }
     return f_ref;
+    fprintf(stderr,"here12");
+
 }
+
 
 /*
  * some helper routines for XLALSimInspiralTD
@@ -1949,8 +1961,7 @@ int XLALSimInspiralFD(
     double chirplen, deltaT;
     int chirplen_exp;
     int retval;
-    printf("generating waveform\n");
-    printf("%f\n",extra_cycles);
+    fprintf(stderr,"here13\n");
     /* adjust the reference frequency for certain precessing approximants:
      * if that approximate interprets f_ref==0 to be f_min, set f_ref=f_min;
      * otherwise do nothing */
