@@ -19,6 +19,7 @@
 
 #include <complex.h>
 #include <math.h>
+#include <stdio.h>
 
 #include <gsl/gsl_const.h>
 #include <gsl/gsl_errno.h>
