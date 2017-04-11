@@ -49,8 +49,6 @@
 #else
 #define UNUSED
 #endif
-if (p.verbose) {
-  printf("here4");
 /**
  * (Twice) the highest known PN order of amplitude correction for
  * non-precessing binaries.
@@ -154,7 +152,6 @@ static const char *lalSimulationApproximantNames[] = {
     INITIALIZE_NAME(SpinTaylorT2Fourier),
     INITIALIZE_NAME(SpinDominatedWf),
     INITIALIZE_NAME(NR_hdf5),
-    printf("here5");
 };
 #undef INITIALIZE_NAME
 
@@ -169,7 +166,6 @@ static const char *lalSimulationPNOrderNames[] = {
     [LAL_PNORDER_THREE]             = "threePN",
     [LAL_PNORDER_THREE_POINT_FIVE]  = "threePointFivePN",
     [LAL_PNORDER_PSEUDO_FOUR]       = "pseudoFourPN",
-    printf("here6");
 
 };
 
@@ -179,7 +175,6 @@ static const char *lalSimulationTaperNames[] = {
     [LAL_SIM_INSPIRAL_TAPER_START]      = "TAPER_START",
     [LAL_SIM_INSPIRAL_TAPER_END]        = "TAPER_END",
     [LAL_SIM_INSPIRAL_TAPER_STARTEND]   = "TAPER_STARTEND",
-    printf("here7");
 
 };
 
@@ -246,7 +241,6 @@ static int delete_substring_in_list_from_string(char *string, const char *list[]
         string[longest_offset + i] = '\b';
 
     return longest_position;
-     printf("here10");
 
 }
 
@@ -273,11 +267,9 @@ static double fixReferenceFrequency(const double f_ref, const double f_min, cons
             return f_min;
         default:
             break;
-    printf("here11");
 
         }
     return f_ref;
-    printf("here12");
 
 }
 
@@ -1962,12 +1954,12 @@ int XLALSimInspiralFD(
     double chirplen, deltaT;
     int chirplen_exp;
     int retval;
-    printf("here13\n");
+    printf("here1\n");
     /* adjust the reference frequency for certain precessing approximants:
      * if that approximate interprets f_ref==0 to be f_min, set f_ref=f_min;
      * otherwise do nothing */
     f_ref = fixReferenceFrequency(f_ref, f_min, approximant);
-
+    printf("here2\n");
     /* apply redshift correction to dimensionful source-frame quantities */
     REAL8 z=XLALSimInspiralWaveformParamsLookupRedshift(LALparams);
     if (z != 0.0) {
@@ -1976,6 +1968,7 @@ int XLALSimInspiralFD(
         distance *= (1.0 + z);  /* change from comoving (transverse) distance to luminosity distance */
     }
     /* set redshift to zero so we don't accidentally apply it again later */
+    printf("here3\n");
     z = 0.0;
     if (LALparams)
       XLALSimInspiralWaveformParamsInsertRedshift(LALparams,z);
@@ -1983,6 +1976,7 @@ int XLALSimInspiralFD(
     /* FIXME: assume that f_max is the Nyquist frequency, and use it
      * to compute the requested deltaT */
     deltaT = 0.5 / f_max;
+    printf("here4\n");
 
     if (XLALSimInspiralImplementedFDApproximants(approximant)) {
 
@@ -2143,7 +2137,7 @@ int XLALSimInspiralFD(
 
     } else /* error: neither a FD nor a TD approximant */
         XLAL_ERROR(XLAL_EINVAL, "Invalid approximant");
-
+}
     return 0;
 }
 
@@ -6817,6 +6811,7 @@ int XLALSimInspiralChooseFDWaveformOLD(
     if (ret == XLAL_FAILURE) XLAL_ERROR(XLAL_EFUNC);
 
     return ret;
+}
 }
 }
 /** @} */
