@@ -49,7 +49,8 @@
 #else
 #define UNUSED
 #endif
-printf("here4");
+if (p.verbose) {
+  printf("here4");
 /**
  * (Twice) the highest known PN order of amplitude correction for
  * non-precessing binaries.
@@ -1471,7 +1472,7 @@ int XLALSimInspiralChooseFDWaveform(
             phiRefAtEnd = 0;
             // if f_ref = 0, set it to f_min, and tell the driver routine that we came from there
             if(f_ref == 0)
-            {
+          {
               f_ref = f_min;
               phiRefAtEnd = 1;
             }
@@ -6817,7 +6818,7 @@ int XLALSimInspiralChooseFDWaveformOLD(
 
     return ret;
 }
-
+}
 /** @} */
 
 /** @} */
