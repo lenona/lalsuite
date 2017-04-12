@@ -509,12 +509,14 @@ int create_fd_waveform(COMPLEX16FrequencySeries ** htilde_plus, COMPLEX16Frequen
 
     if (p.condition) {
         if (p.verbose) {
+            fprintf(stderr,"here1\n");
             fprintf(stderr, "generating waveform in frequency domain using XLALSimInspiralFD...\n");
-	    fprintf(stderr,"here1\n"); 
+	    fprintf(stderr,"here2\n"); 
             timer_start = clock();
-		fprintf(stderr,"here2\n");
+		fprintf(stderr,"here3\n");
         }
-	fprintf(stderr,"here3\n");
+	fprintf(stderr,"here4\n");
+        
         XLALSimInspiralFD(htilde_plus, htilde_cross, p.m1, p.m2, p.s1x, p.s1y, p.s1z, p.s2x, p.s2y, p.s2z, p.distance, p.inclination, p.phiRef, p.longAscNodes, p.eccentricity, p.meanPerAno, deltaF, p.f_min, 0.5 * p.srate, p.fRef, p.params, p.approx);
         if (p.verbose)
             fprintf(stderr, "generation took %g seconds\n", (double)(clock() - timer_start) / CLOCKS_PER_SEC);

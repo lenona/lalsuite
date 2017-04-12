@@ -1955,16 +1955,19 @@ int XLALSimInspiralFD(
     double chirplen, deltaT;
     int chirplen_exp;
     int retval;
+    printf("here1");
     /* adjust the reference frequency for certain precessing approximants:
      * if that approximate interprets f_ref==0 to be f_min, set f_ref=f_min;
      * otherwise do nothing */
     f_ref = fixReferenceFrequency(f_ref, f_min, approximant);
+    printf("here2");
     /* apply redshift correction to dimensionful source-frame quantities */
     REAL8 z=XLALSimInspiralWaveformParamsLookupRedshift(LALparams);
     if (z != 0.0) {
         m1 *= (1.0 + z);
         m2 *= (1.0 + z);
         distance *= (1.0 + z);  /* change from comoving (transverse) distance to luminosity distance */
+        printf("here3");
     }
     /* set redshift to zero so we don't accidentally apply it again later */
     z = 0.0;
@@ -1974,7 +1977,7 @@ int XLALSimInspiralFD(
     /* FIXME: assume that f_max is the Nyquist frequency, and use it
      * to compute the requested deltaT */
     deltaT = 0.5 / f_max;
-
+    printf("here4");
     if (XLALSimInspiralImplementedFDApproximants(approximant)) {
 
         /* generate a FD waveform and condition it by applying tapers at
