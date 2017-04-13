@@ -421,7 +421,7 @@ int output_fd_waveform(COMPLEX16FrequencySeries * htilde_plus, COMPLEX16Frequenc
 
 /* creates a waveform in the time domain; the waveform might be generated in
  * the frequency-domain and transformed */
-int create_td_waveform(REAL8TimeSeries ** h_plus, REAL8TimeSeries ** h_cross, struct params p)
+int create_td_waveform(REAL8TimeSeries ** hplus, REAL8TimeSeries ** hcross, struct params p)
 {
     clock_t timer_start = 0;
 
@@ -430,7 +430,7 @@ int create_td_waveform(REAL8TimeSeries ** h_plus, REAL8TimeSeries ** h_cross, st
             fprintf(stderr, "generating waveform in time domain using XLALSimInspiralTD...\n");
             timer_start = clock();
         }
-        XLALSimInspiralTD(h_plus, h_cross, p.m1, p.m2, p.s1x, p.s1y, p.s1z, p.s2x, p.s2y, p.s2z, p.distance, p.inclination, p.phiRef, p.longAscNodes, p.eccentricity, p.meanPerAno, 1.0 / p.srate, p.f_min, p.fRef, p.params, p.approx);
+        XLALSimInspiralTD(hplus, hcross, p.m1, p.m2, p.s1x, p.s1y, p.s1z, p.s2x, p.s2y, p.s2z, p.distance, p.inclination, p.phiRef, p.longAscNodes, p.eccentricity, p.meanPerAno, 1.0 / p.srate, p.f_min, p.fRef, p.params, p.approx);
         if (p.verbose)
             fprintf(stderr, "generation took %g seconds\n", (double)(clock() - timer_start) / CLOCKS_PER_SEC);
     } else if (p.domain == LAL_SIM_DOMAIN_TIME) {
@@ -492,7 +492,7 @@ int create_td_waveform(REAL8TimeSeries ** h_plus, REAL8TimeSeries ** h_cross, st
 
 /* creates a waveform in the frequency domain; the waveform might be generated
  * in the time-domain and transformed */
-int create_fd_waveform(COMPLEX16FrequencySeries ** htilde_plus, COMPLEX16FrequencySeries ** htilde_cross, struct params p)
+int create_fd_waveform(COMPLEX16FrequencySeries ** hptilde, COMPLEX16FrequencySeries ** hctilde, struct params p)
 {
     clock_t timer_start = 0;
     double chirplen, deltaF;
