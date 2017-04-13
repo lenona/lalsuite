@@ -439,7 +439,7 @@ int create_td_waveform(REAL8TimeSeries ** hplus, REAL8TimeSeries ** hcross, stru
             fprintf(stderr, "generating waveform in time domain using XLALSimInspiralChooseTDWaveform...\n");
             timer_start = clock();
         }
-        XLALSimInspiralChooseTDWaveform(h_plus, h_cross, p.m1, p.m2, p.s1x, p.s1y, p.s1z, p.s2x, p.s2y, p.s2z, p.distance, p.inclination, p.phiRef, p.longAscNodes, p.eccentricity, p.meanPerAno, 1.0 / p.srate, p.f_min, p.fRef, p.params, p.approx);
+        XLALSimInspiralChooseTDWaveform(hplus, hcross, p.m1, p.m2, p.s1x, p.s1y, p.s1z, p.s2x, p.s2y, p.s2z, p.distance, p.inclination, p.phiRef, p.longAscNodes, p.eccentricity, p.meanPerAno, 1.0 / p.srate, p.f_min, p.fRef, p.params, p.approx);
         if (p.verbose)
             fprintf(stderr, "generation took %g seconds\n", (double)(clock() - timer_start) / CLOCKS_PER_SEC);
     } else {
@@ -525,7 +525,7 @@ int create_fd_waveform(COMPLEX16FrequencySeries ** hptilde, COMPLEX16FrequencySe
             fprintf(stderr, "generating waveform in frequency domain using XLALSimInspiralChooseFDWaveform...\n");
             timer_start = clock();
         }
-        XLALSimInspiralChooseFDWaveform(htilde_plus, htilde_cross, p.m1, p.m2, p.s1x, p.s1y, p.s1z, p.s2x, p.s2y, p.s2z, p.distance, p.inclination, p.phiRef, p.longAscNodes, p.eccentricity, p.meanPerAno, deltaF, p.f_min, 0.5 * p.srate, p.fRef, p.params, p.approx);
+        XLALSimInspiralChooseFDWaveform(hptilde, hctilde, p.m1, p.m2, p.s1x, p.s1y, p.s1z, p.s2x, p.s2y, p.s2z, p.distance, p.inclination, p.phiRef, p.longAscNodes, p.eccentricity, p.meanPerAno, deltaF, p.f_min, 0.5 * p.srate, p.fRef, p.params, p.approx);
         if (p.verbose)
             fprintf(stderr, "generation took %g seconds\n", (double)(clock() - timer_start) / CLOCKS_PER_SEC);
     } else {
