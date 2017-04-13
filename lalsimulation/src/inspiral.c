@@ -473,8 +473,8 @@ int create_td_waveform(REAL8TimeSeries ** hplus, REAL8TimeSeries ** hcross, stru
             fprintf(stderr, "transforming waveform to time domain...\n");
             timer_start = clock();
         }
-        *h_plus = XLALCreateREAL8TimeSeries("h_plus", &htilde_plus->epoch, 0.0, 1.0 / p.srate, &lalStrainUnit, (size_t) chirplen);
-        *h_cross = XLALCreateREAL8TimeSeries("h_cross", &htilde_cross->epoch, 0.0, 1.0 / p.srate, &lalStrainUnit, (size_t) chirplen);
+        *h_plus = XLALCreateREAL8TimeSeries("hplus", &htilde_plus->epoch, 0.0, 1.0 / p.srate, &lalStrainUnit, (size_t) chirplen);
+        *h_cross = XLALCreateREAL8TimeSeries("hcross", &htilde_cross->epoch, 0.0, 1.0 / p.srate, &lalStrainUnit, (size_t) chirplen);
         plan = XLALCreateReverseREAL8FFTPlan((size_t) chirplen, 0);
         XLALREAL8FreqTimeFFT(*h_cross, htilde_cross, plan);
         XLALREAL8FreqTimeFFT(*h_plus, htilde_plus, plan);
@@ -552,8 +552,8 @@ int create_fd_waveform(COMPLEX16FrequencySeries ** hptilde, COMPLEX16FrequencySe
             fprintf(stderr, "transforming waveform to frequency domain...\n");
             timer_start = clock();
         }
-        *htilde_plus = XLALCreateCOMPLEX16FrequencySeries("htilde_plus", &h_plus->epoch, 0.0, deltaF, &lalDimensionlessUnit, (size_t) chirplen / 2 + 1);
-        *htilde_cross = XLALCreateCOMPLEX16FrequencySeries("htilde_cross", &h_cross->epoch, 0.0, deltaF, &lalDimensionlessUnit, (size_t) chirplen / 2 + 1);
+        *htilde_plus = XLALCreateCOMPLEX16FrequencySeries("hptilde", &h_plus->epoch, 0.0, deltaF, &lalDimensionlessUnit, (size_t) chirplen / 2 + 1);
+        *htilde_cross = XLALCreateCOMPLEX16FrequencySeries("hctilde", &h_cross->epoch, 0.0, deltaF, &lalDimensionlessUnit, (size_t) chirplen / 2 + 1);
         plan = XLALCreateForwardREAL8FFTPlan((size_t) chirplen, 0);
         XLALREAL8TimeFreqFFT(*htilde_cross, h_cross, plan);
         XLALREAL8TimeFreqFFT(*htilde_plus, h_plus, plan);
