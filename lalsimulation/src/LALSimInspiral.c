@@ -1985,7 +1985,7 @@ int XLALSimInspiralFD(
     /* FIXME: assume that f_max is the Nyquist frequency, and use it
      * to compute the requested deltaT */
     deltaT = 0.5 / f_max;
-
+    printf("here1\n");
     if (XLALSimInspiralImplementedFDApproximants(approximant)) {
 
         /* generate a FD waveform and condition it by applying tapers at
@@ -1997,15 +1997,18 @@ int XLALSimInspiralFD(
         double fstart, fisco;
         double s;
         size_t k, k0, k1;
+        printf("here2\n");
 
         /* if the requested low frequency is below the lowest Kerr ISCO
          * frequency then change it to that frequency */
         fisco = 1.0 / (pow(9.0, 1.5) * LAL_PI * (m1 + m2) * LAL_MTSUN_SI / LAL_MSUN_SI);
         if (f_min > fisco)
             f_min = fisco;
+        printf("here3\n");
 
         /* upper bound on the chirp time starting at f_min */
         tchirp = XLALSimInspiralChirpTimeBound(f_min, m1, m2, S1z, S2z);
+        printf("here4\n");
 
         /* upper bound on the final plunge, merger, and ringdown time */
         switch (approximant) {
@@ -2026,6 +2029,8 @@ int XLALSimInspiralFD(
              * that here */
             s = XLALSimInspiralFinalBlackHoleSpinBound(S1z, S2z);
             tmerge = XLALSimInspiralMergeTimeBound(m1, m2) + XLALSimInspiralRingdownTimeBound(m1 + m2, s);
+            printf("here5\n");
+
             break;
         }
 
