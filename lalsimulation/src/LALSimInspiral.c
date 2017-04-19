@@ -2035,7 +2035,7 @@ int XLALSimInspiralFD(
          * equal to a few extra cycles at the low frequency as well for
          * safety and for other routines to use */
         textra = extra_cycles / f_min;
-        printf("%.2f\n", textra);
+        printf("%f\n", textra);
         fstart = XLALSimInspiralChirpStartFrequencyBound((1.0 + extra_time_fraction) * tchirp, m1, m2);
 
         /* revise (over-)estimate of chirp from new start frequency */
