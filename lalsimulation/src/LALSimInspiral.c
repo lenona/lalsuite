@@ -1959,12 +1959,12 @@ int XLALSimInspiralFD(
     Approximant approximant                 /**< post-Newtonian approximant to use for waveform production */
     )
 {
-    const double extra_time_fraction = 0.05; /* fraction of waveform duration to add as extra time for tapering */
-    const double extra_cycles = 3.0; /* more extra time measured in cycles at the starting frequency */
+    const double extra_time_fraction = 0.1; /* fraction of waveform duration to add as extra time for tapering */
+    const double extra_cycles = 1.0; /* more extra time measured in cycles at the starting frequency */
     double chirplen, deltaT;
     int chirplen_exp;
     int retval;
-
+    printf("%f\n", extra_cycles);
     /* adjust the reference frequency for certain precessing approximants:
      * if that approximate interprets f_ref==0 to be f_min, set f_ref=f_min;
      * otherwise do nothing */
@@ -2035,6 +2035,7 @@ int XLALSimInspiralFD(
          * equal to a few extra cycles at the low frequency as well for
          * safety and for other routines to use */
         textra = extra_cycles / f_min;
+        printf("%.2f\n", textra);
         fstart = XLALSimInspiralChirpStartFrequencyBound((1.0 + extra_time_fraction) * tchirp, m1, m2);
 
         /* revise (over-)estimate of chirp from new start frequency */
