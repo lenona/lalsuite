@@ -1964,7 +1964,7 @@ int XLALSimInspiralFD(
     double chirplen, deltaT;
     int chirplen_exp;
     int retval;
-    printf("%f\n", extra_cycles);
+    printf("extra_cycles is: %f\n", extra_cycles);
     /* adjust the reference frequency for certain precessing approximants:
      * if that approximate interprets f_ref==0 to be f_min, set f_ref=f_min;
      * otherwise do nothing */
@@ -2035,7 +2035,8 @@ int XLALSimInspiralFD(
          * equal to a few extra cycles at the low frequency as well for
          * safety and for other routines to use */
         textra = extra_cycles / f_min;
-        printf("%f\n", textra);
+        printf("textra is: %f\n", textra);
+        printf("fmin is: %f\n", f_min);
         fstart = XLALSimInspiralChirpStartFrequencyBound((1.0 + extra_time_fraction) * tchirp, m1, m2);
 
         /* revise (over-)estimate of chirp from new start frequency */
