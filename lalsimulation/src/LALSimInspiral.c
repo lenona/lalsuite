@@ -2039,44 +2039,62 @@ int XLALSimInspiralFD(
          * a fixed fraction of the chirp time; add some additional padding
          * equal to a few extra cycles at the low frequency as well for
          * safety and for other routines to use */
+
         textra = extra_cycles / f_min;
         printf("textra is: %f\n", textra);
         printf("fmin is: %f\n", f_min);
         fstart = XLALSimInspiralChirpStartFrequencyBound((1.0 + extra_time_fraction) * tchirp, m1, m2);
+        printf("here6\n");
 
         /* revise (over-)estimate of chirp from new start frequency */
         tchirp = XLALSimInspiralChirpTimeBound(fstart, m1, m2, S1z, S2z);
+        printf("here7\n");
 
         /* need a long enough segment to hold a whole chirp with some padding */
         /* length of the chirp in samples */
         chirplen = round((tchirp + tmerge + 2.0 * textra) / deltaT);
+        printf("here8\n");
+
         /* make chirplen next power of two */
         frexp(chirplen, &chirplen_exp);
         chirplen = ldexp(1.0, chirplen_exp);
+
+        printf("here9\n");
         /* frequency resolution */
         if (deltaF == 0.0)
             deltaF = 1.0 / (chirplen * deltaT);
+
+        printf("here10\n");
         else if (deltaF > 1.0 / (chirplen * deltaT))
             XLAL_PRINT_WARNING("Specified frequency interval of %g Hz is too large for a chirp of duration %g s", deltaF, chirplen * deltaT);
+        printf("here11\n");
 
         /* generate the waveform in the frequency domain starting at fstart */
         retval = XLALSimInspiralChooseFDWaveform(hptilde, hctilde, m1, m2, S1x, S1y, S1z, S2x, S2y, S2z, distance, inclination, phiRef, longAscNodes, eccentricity, meanPerAno, deltaF, fstart, f_max, f_ref, LALparams, approximant);
+        printf("here12\n");
+
         if (retval < 0)
             XLAL_ERROR(XLAL_EFUNC);
 
         /* taper frequencies between fstart and f_min */
         k0 = round(fstart / (*hptilde)->deltaF);
+        printf("here13\n");
+
         k1 = round(f_min / (*hptilde)->deltaF);
         /* make sure it is zero below fstart */
         for (k = 0; k < k0; ++k) {
             (*hptilde)->data->data[k] = 0.0;
             (*hctilde)->data->data[k] = 0.0;
+        printf("here14\n");
+
         }
         /* taper between fstart and f_min */
         for ( ; k < k1; ++k) {
             double w = 0.5 - 0.5 * cos(M_PI * (k - k0) / (double)(k1 - k0));
             (*hptilde)->data->data[k] *= w;
             (*hctilde)->data->data[k] *= w;
+            printf("here15\n");
+
         }
         /* make sure Nyquist frequency is zero */
         (*hptilde)->data->data[(*hptilde)->data->length - 1] = 0.0;
@@ -2088,6 +2106,8 @@ int XLALSimInspiralFD(
          * we shift waveform backwards in time and compensate for this
          * shift by adjusting the epoch */
         tshift = round(tmerge / deltaT) * deltaT; /* integer number of time samples */
+        printf("here16\n");
+
         for (k = 0; k < (*hptilde)->data->length; ++k) {
             double complex phasefac = cexp(2.0 * M_PI * I * k * deltaF * tshift);
             (*hptilde)->data->data[k] *= phasefac;
@@ -2095,6 +2115,7 @@ int XLALSimInspiralFD(
         }
         XLALGPSAdd(&(*hptilde)->epoch, tshift);
         XLALGPSAdd(&(*hctilde)->epoch, tshift);
+        printf("here17\n");
 
     } else if (XLALSimInspiralImplementedTDApproximants(approximant)) {
 
@@ -2103,25 +2124,34 @@ int XLALSimInspiralFD(
         REAL8TimeSeries *hplus = NULL;
         REAL8TimeSeries *hcross = NULL;
         REAL8FFTPlan *plan;
+        printf("here18\n");
 
         /* generate conditioned waveform in time domain */
         retval = XLALSimInspiralTD(&hplus, &hcross, m1, m2, S1x, S1y, S1z, S2x, S2y, S2z, distance, inclination, phiRef, longAscNodes, eccentricity, meanPerAno, deltaT, f_min, f_ref, LALparams, approximant);
+        printf("here19\n");
+
         if (retval < 0)
             XLAL_ERROR(XLAL_EFUNC);
 
         /* determine chirp length and round up to next power of two */
         chirplen = hplus->data->length;
+
+        printf("here20\n");
         frexp(chirplen, &chirplen_exp);
+        printf("here21\n");
         chirplen = ldexp(1.0, chirplen_exp);
         /* frequency resolution */
         if (deltaF == 0.0)
             deltaF = 1.0 / (chirplen * hplus->deltaT);
+        printf("here22\n");
+
         else { /* recompute chirplen based on deltaF and f_max */
             size_t n;
             if (deltaF > 1.0 / (chirplen * deltaT))
                 XLAL_PRINT_WARNING("Specified frequency interval of %g Hz is too large for a chirp of duration %g s", deltaF, chirplen * deltaT);
             n = chirplen = round(2.0 * f_max / deltaF);
             if ((n & (n - 1))) { /* not a power of 2 */
+                printf("here23\n");
                 /* what do we do here?... we need to change either
                  * f_max or deltaF so that chirplen is a power of 2
                  * so that the FFT can be done, so choose to change f_max */
@@ -2130,25 +2160,38 @@ int XLALSimInspiralFD(
                 chirplen = ldexp(1.0, chirplen_exp);
                 XLAL_PRINT_WARNING("f_max/deltaF = %g/%g = %g is not a power of two: changing f_max to %g", f_max, deltaF, f_max/deltaF, (chirplen / 2) * deltaF);
                 f_max = (chirplen / 2) * deltaF;
+               printf("here24\n");
+
             }
         }
 
         /* resize waveforms to the required length */
         XLALResizeREAL8TimeSeries(hplus, hplus->data->length - (size_t) chirplen, (size_t) chirplen);
+        printf("here25\n");
+
         XLALResizeREAL8TimeSeries(hcross, hcross->data->length - (size_t) chirplen, (size_t) chirplen);
+        printf("here26\n");
 
         /* put the waveform in the frequency domain */
         /* (the units will correct themselves) */
         *hptilde = XLALCreateCOMPLEX16FrequencySeries("FD H_PLUS", &hplus->epoch, 0.0, deltaF, &lalDimensionlessUnit, (size_t) chirplen / 2 + 1);
+        printf("here27\n");
         *hctilde = XLALCreateCOMPLEX16FrequencySeries("FD H_CROSS", &hcross->epoch, 0.0, deltaF, &lalDimensionlessUnit, (size_t) chirplen / 2 + 1);
+        printf("here28\n");
         plan = XLALCreateForwardREAL8FFTPlan((size_t) chirplen, 0);
+        printf("here29\n");
         XLALREAL8TimeFreqFFT(*hctilde, hcross, plan);
+        printf("here30\n");
         XLALREAL8TimeFreqFFT(*hptilde, hplus, plan);
+        printf("here31\n");
 
         /* clean up */
         XLALDestroyREAL8FFTPlan(plan);
+        printf("here32\n");
         XLALDestroyREAL8TimeSeries(hcross);
+        printf("here33\n");
         XLALDestroyREAL8TimeSeries(hplus);
+        printf("here34\n");
 
     } else /* error: neither a FD nor a TD approximant */
         XLAL_ERROR(XLAL_EINVAL, "Invalid approximant");
