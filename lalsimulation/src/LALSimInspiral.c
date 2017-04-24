@@ -1997,13 +1997,16 @@ int XLALSimInspiralFD(
         double fstart, fisco;
         double s;
         size_t k, k0, k1;
+
         printf("here2\n");
 
         /* if the requested low frequency is below the lowest Kerr ISCO
          * frequency then change it to that frequency */
         fisco = 1.0 / (pow(9.0, 1.5) * LAL_PI * (m1 + m2) * LAL_MTSUN_SI / LAL_MSUN_SI);
-        if (f_min > fisco)
+        if (f_min > fisco) {
             f_min = fisco;
+        }
+
         printf("here3\n");
 
         /* upper bound on the chirp time starting at f_min */
@@ -2061,21 +2064,22 @@ int XLALSimInspiralFD(
 
         printf("here9\n");
         /* frequency resolution */
-        if (deltaF == 0.0)
+        if (deltaF == 0.0) {
             deltaF = 1.0 / (chirplen * deltaT);
-
+        }
         printf("here10\n");
-        else if (deltaF > 1.0 / (chirplen * deltaT))
-            XLAL_PRINT_WARNING("Specified frequency interval of %g Hz is too large for a chirp of duration %g s", deltaF, chirplen * deltaT);
+        else if (deltaF > 1.0 / (chirplen * deltaT)) {
+            XLAL_PRINT_WARNING("Specified frequency interval of %g Hz is too large for a chirp of duration %g s", deltaF, chirplen * deltaT); 
+        }
         printf("here11\n");
 
         /* generate the waveform in the frequency domain starting at fstart */
         retval = XLALSimInspiralChooseFDWaveform(hptilde, hctilde, m1, m2, S1x, S1y, S1z, S2x, S2y, S2z, distance, inclination, phiRef, longAscNodes, eccentricity, meanPerAno, deltaF, fstart, f_max, f_ref, LALparams, approximant);
         printf("here12\n");
 
-        if (retval < 0)
+        if (retval < 0) {
             XLAL_ERROR(XLAL_EFUNC);
-
+         }
         /* taper frequencies between fstart and f_min */
         k0 = round(fstart / (*hptilde)->deltaF);
         printf("here13\n");
@@ -2193,7 +2197,7 @@ int XLALSimInspiralFD(
         XLALDestroyREAL8TimeSeries(hplus);
         printf("here34\n");
 
-    } else /* error: neither a FD nor a TD approximant */
+   }  else /* error: neither a FD nor a TD approximant */
         XLAL_ERROR(XLAL_EINVAL, "Invalid approximant");
 
     return 0;
