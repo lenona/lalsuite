@@ -1964,49 +1964,58 @@ int XLALSimInspiralFD(
     double chirplen, deltaT;
     int chirplen_exp;
     int retval;
-
+    printf("here1\n");
     /* adjust the reference frequency for certain precessing approximants:
      * if that approximate interprets f_ref==0 to be f_min, set f_ref=f_min;
      * otherwise do nothing */
     f_ref = fixReferenceFrequency(f_ref, f_min, approximant);
-
+    printf("here2\n");
     /* apply redshift correction to dimensionful source-frame quantities */
     REAL8 z=XLALSimInspiralWaveformParamsLookupRedshift(LALparams);
     if (z != 0.0) {
         m1 *= (1.0 + z);
         m2 *= (1.0 + z);
         distance *= (1.0 + z);  /* change from comoving (transverse) distance to luminosity distance */
+        printf("here3\n");
     }
     /* set redshift to zero so we don't accidentally apply it again later */
     z = 0.0;
+    printf("here4\n");
     if (LALparams)
       XLALSimInspiralWaveformParamsInsertRedshift(LALparams,z);
-
+    
+    printf("here5\n");
     /* FIXME: assume that f_max is the Nyquist frequency, and use it
      * to compute the requested deltaT */
     deltaT = 0.5 / f_max;
-
+    printf("here6\n");
     if (XLALSimInspiralImplementedFDApproximants(approximant)) {
 
         /* generate a FD waveform and condition it by applying tapers at
          * frequencies between a frequency below the requested f_min and
          * f_min; also wind the waveform in phase in case it would wrap-
          * around at the merger time */
+        printf("here7\n");
 
         double tchirp, tmerge, textra, tshift;
         double fstart, fisco;
         double s;
         size_t k, k0, k1;
 
+        printf("here8\n");
         /* if the requested low frequency is below the lowest Kerr ISCO
          * frequency then change it to that frequency */
         fisco = 1.0 / (pow(9.0, 1.5) * LAL_PI * (m1 + m2) * LAL_MTSUN_SI / LAL_MSUN_SI);
+        printf("here9\n");
+
         if (f_min > fisco)
             f_min = fisco;
 
+        printf("here10\n");
         /* upper bound on the chirp time starting at f_min */
         tchirp = XLALSimInspiralChirpTimeBound(f_min, m1, m2, S1z, S2z);
-
+        
+        printf("here11\n");
         /* upper bound on the final plunge, merger, and ringdown time */
         switch (approximant) {
         case TaylorF2:
@@ -2018,6 +2027,8 @@ int XLALSimInspiralFD(
             /* inspiral-only models: no merger time */
             tmerge = 0.0;
             break;
+            printf("here12\n");
+ 
         default:
             /* IMR model: estimate plunge and merger time */
             /* sometimes these waveforms have phases that
@@ -2025,7 +2036,11 @@ int XLALSimInspiralFD(
              * the merger-ringodwn time, so we will undo
              * that here */
             s = XLALSimInspiralFinalBlackHoleSpinBound(S1z, S2z);
+            printf("here13\n");
+
             tmerge = XLALSimInspiralMergeTimeBound(m1, m2) + XLALSimInspiralRingdownTimeBound(m1 + m2, s);
+            printf("here14\n");
+
             break;
         }
 
