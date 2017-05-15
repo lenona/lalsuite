@@ -2043,6 +2043,8 @@ int XLALSimInspiralFD(
 
             break;
         }
+        
+        printf("here15\n");
 
         /* new lower frequency to start the waveform: add some extra early
          * part over which tapers may be applied, the extra amount being
@@ -2050,17 +2052,27 @@ int XLALSimInspiralFD(
          * equal to a few extra cycles at the low frequency as well for
          * safety and for other routines to use */
         textra = extra_cycles / f_min;
+        printf("here16\n");
+
         fstart = XLALSimInspiralChirpStartFrequencyBound((1.0 + extra_time_fraction) * tchirp, m1, m2);
+        printf("here17\n");
 
         /* revise (over-)estimate of chirp from new start frequency */
         tchirp = XLALSimInspiralChirpTimeBound(fstart, m1, m2, S1z, S2z);
+        printf("here18\n");
 
         /* need a long enough segment to hold a whole chirp with some padding */
         /* length of the chirp in samples */
         chirplen = round((tchirp + tmerge + 2.0 * textra) / deltaT);
+        printf("here19\n");
+
         /* make chirplen next power of two */
         frexp(chirplen, &chirplen_exp);
+        printf("here20\n");
+
         chirplen = ldexp(1.0, chirplen_exp);
+        printf("here21\n");
+
         /* frequency resolution */
         if (deltaF == 0.0)
             deltaF = 1.0 / (chirplen * deltaT);
