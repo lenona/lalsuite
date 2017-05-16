@@ -2078,29 +2078,47 @@ int XLALSimInspiralFD(
             deltaF = 1.0 / (chirplen * deltaT);
         else if (deltaF > 1.0 / (chirplen * deltaT))
             XLAL_PRINT_WARNING("Specified frequency interval of %g Hz is too large for a chirp of duration %g s", deltaF, chirplen * deltaT);
+        printf("here22\n");
 
         /* generate the waveform in the frequency domain starting at fstart */
         retval = XLALSimInspiralChooseFDWaveform(hptilde, hctilde, m1, m2, S1x, S1y, S1z, S2x, S2y, S2z, distance, inclination, phiRef, longAscNodes, eccentricity, meanPerAno, deltaF, fstart, f_max, f_ref, LALparams, approximant);
         if (retval < 0)
             XLAL_ERROR(XLAL_EFUNC);
 
+        printf("here23\n");
+
         /* taper frequencies between fstart and f_min */
         k0 = round(fstart / (*hptilde)->deltaF);
         k1 = round(f_min / (*hptilde)->deltaF);
+
+        printf("here24\n");
+
         /* make sure it is zero below fstart */
         for (k = 0; k < k0; ++k) {
             (*hptilde)->data->data[k] = 0.0;
             (*hctilde)->data->data[k] = 0.0;
+            printf("here25\n");
+
         }
+
+        printf("here26\n");
+
         /* taper between fstart and f_min */
         for ( ; k < k1; ++k) {
             double w = 0.5 - 0.5 * cos(M_PI * (k - k0) / (double)(k1 - k0));
             (*hptilde)->data->data[k] *= w;
             (*hctilde)->data->data[k] *= w;
+            printf("here27\n");
+
         }
+
+        printf("here28\n");
+
         /* make sure Nyquist frequency is zero */
         (*hptilde)->data->data[(*hptilde)->data->length - 1] = 0.0;
         (*hctilde)->data->data[(*hctilde)->data->length - 1] = 0.0;
+
+        printf("here29\n");
 
         /* we want to make sure that this waveform will give something
          * sensible if it is later transformed into the time domain:
@@ -2108,11 +2126,17 @@ int XLALSimInspiralFD(
          * we shift waveform backwards in time and compensate for this
          * shift by adjusting the epoch */
         tshift = round(tmerge / deltaT) * deltaT; /* integer number of time samples */
+
+        printf("here30\n");
+
         for (k = 0; k < (*hptilde)->data->length; ++k) {
             double complex phasefac = cexp(2.0 * M_PI * I * k * deltaF * tshift);
             (*hptilde)->data->data[k] *= phasefac;
             (*hctilde)->data->data[k] *= phasefac;
         }
+ 
+        printf("here31\n");
+
         XLALGPSAdd(&(*hptilde)->epoch, tshift);
         XLALGPSAdd(&(*hctilde)->epoch, tshift);
 
