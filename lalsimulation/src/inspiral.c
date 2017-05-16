@@ -511,8 +511,10 @@ int create_fd_waveform(COMPLEX16FrequencySeries ** htilde_plus, COMPLEX16Frequen
         if (p.verbose) {
             fprintf(stderr, "generating waveform in frequency domain using XLALSimInspiralFD...\n");
             timer_start = clock();
-        }
+        
         XLALSimInspiralFD(htilde_plus, htilde_cross, p.m1, p.m2, p.s1x, p.s1y, p.s1z, p.s2x, p.s2y, p.s2z, p.distance, p.inclination, p.phiRef, p.longAscNodes, p.eccentricity, p.meanPerAno, deltaF, p.f_min, 0.5 * p.srate, p.fRef, p.params, p.approx);
+        }  
+
         if (p.verbose)
             fprintf(stderr, "generation took %g seconds\n", (double)(clock() - timer_start) / CLOCKS_PER_SEC);
     } else if (p.domain == LAL_SIM_DOMAIN_FREQUENCY) {
