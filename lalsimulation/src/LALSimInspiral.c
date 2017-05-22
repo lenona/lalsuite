@@ -1614,7 +1614,7 @@ static int XLALSimInspiralTDFromTD(
 )
 {
     const double extra_time_fraction = 0.1; /* fraction of waveform duration to add as extra time for tapering */
-    const double extra_cycles = 3.0; /* more extra time measured in cycles at the starting frequency */
+    const double extra_cycles = 1.0; /* more extra time measured in cycles at the starting frequency */
     double original_f_min = f_min; /* f_min might be overwritten below, so keep original value */
     double tchirp, tmerge, textra;
     double fisco, fstart;
