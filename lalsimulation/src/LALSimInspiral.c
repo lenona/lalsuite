@@ -1614,7 +1614,7 @@ static int XLALSimInspiralTDFromTD(
 )
 {
     const double extra_time_fraction = 0.1; /* fraction of waveform duration to add as extra time for tapering */
-    const double extra_cycles = 1.0; /* more extra time measured in cycles at the starting frequency */
+    const double extra_cycles = 2.0; /* more extra time measured in cycles at the starting frequency */
     double original_f_min = f_min; /* f_min might be overwritten below, so keep original value */
     double tchirp, tmerge, textra;
     double fisco, fstart;
@@ -1718,7 +1718,7 @@ static int XLALSimInspiralTDFromFD(
     size_t chirplen, end, k;
     double tshift;
     const double extra_time_fraction = 0.1; /* fraction of waveform duration to add as extra time for tapering */
-    const double extra_cycles = 1.0; /* more extra time measured in cycles at the starting frequency */
+    const double extra_cycles = 2.0; /* more extra time measured in cycles at the starting frequency */
     double original_f_min = f_min; /* f_min might be overwritten below, so keep original value */
     double f_max = 0.5 / deltaT;
     double tchirp, tmerge, textra;
@@ -1960,7 +1960,7 @@ int XLALSimInspiralFD(
     )
 {
     const double extra_time_fraction = 0.1; /* fraction of waveform duration to add as extra time for tapering */
-    const double extra_cycles = 1.0; /* more extra time measured in cycles at the starting frequency */
+    const double extra_cycles = 2.0; /* more extra time measured in cycles at the starting frequency */
     double chirplen, deltaT;
     int chirplen_exp;
     int retval;
