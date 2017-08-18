@@ -1613,7 +1613,7 @@ static int XLALSimInspiralTDFromTD(
     Approximant approximant                     /**< post-Newtonian approximant to use for waveform production */
 )
 {
-    const double extra_time_fraction = 0.01; /* fraction of waveform duration to add as extra time for tapering */
+    const double extra_time_fraction = 0.05; /* fraction of waveform duration to add as extra time for tapering */
     const double extra_cycles = 3.0; /* more extra time measured in cycles at the starting frequency */
     double original_f_min = f_min; /* f_min might be overwritten below, so keep original value */
     double tchirp, tmerge, textra;
@@ -1717,7 +1717,7 @@ static int XLALSimInspiralTDFromFD(
     REAL8FFTPlan *plan;
     size_t chirplen, end, k;
     double tshift;
-    const double extra_time_fraction = 0.01; /* fraction of waveform duration to add as extra time for tapering */
+    const double extra_time_fraction = 0.05; /* fraction of waveform duration to add as extra time for tapering */
     const double extra_cycles = 3.0; /* more extra time measured in cycles at the starting frequency */
     double original_f_min = f_min; /* f_min might be overwritten below, so keep original value */
     double f_max = 0.5 / deltaT;
@@ -1959,7 +1959,7 @@ int XLALSimInspiralFD(
     Approximant approximant                 /**< post-Newtonian approximant to use for waveform production */
     )
 {
-    const double extra_time_fraction = 0.01; /* fraction of waveform duration to add as extra time for tapering */
+    const double extra_time_fraction = 0.05; /* fraction of waveform duration to add as extra time for tapering */
     const double extra_cycles = 3.0; /* more extra time measured in cycles at the starting frequency */
     double chirplen, deltaT;
     int chirplen_exp;
