@@ -2122,13 +2122,13 @@ int XLALSimInspiralFD(
         k0 = round(fstart / (*hptilde)->deltaF);
         k1 = round(f_min / (*hptilde)->deltaF);
         /* make sure it is zero below fstart */
-        pFile = fopen ("waveform_check.txt","w");
+        pFile = fopen("waveform_check.txt","w");
         for (k = 0; k < k0; ++k) {
             (*hptilde)->data->data[k] = 0.0;
             (*hctilde)->data->data[k] = 0.0;
             fprintf (pFile, "%e %e \n",(*hptilde)->data->data[k],(*hctilde)->data->data[k]);
         }
-        fclose (pFile);
+        fclose(pFile);
         /* taper between fstart and f_min */
         for ( ; k < k1; ++k) {
             double w = 0.5 - 0.5 * cos(M_PI * (k - k0) / (double)(k1 - k0));
