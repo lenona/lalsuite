@@ -1964,7 +1964,7 @@ int XLALSimInspiralFD(
     double chirplen, deltaT;
     int chirplen_exp;
     int retval;
-
+    int * pFile;
     /* adjust the reference frequency for certain precessing approximants:
      * if that approximate interprets f_ref==0 to be f_min, set f_ref=f_min;
      * otherwise do nothing */
@@ -2061,33 +2061,34 @@ int XLALSimInspiralFD(
         k0 = round(fstart / (*hptilde)->deltaF);
         k1 = round(f_min / (*hptilde)->deltaF);
         /* make sure it is zero below fstart */
+        pFile = fopen("waveform_check.txt","w");
         for (k = 0; k < k0; ++k) {
             (*hptilde)->data->data[k] = 0.0;
             (*hctilde)->data->data[k] = 0.0;
+            fprintf (pFile, "%e %e \n",(*hptilde)->data->data[k],(*hctilde)->data->data[k]);
         }
-        /* taper between fstart and f_min
+        fclose(pFile);
+        /* taper between fstart and f_min */
         for ( ; k < k1; ++k) {
             double w = 0.5 - 0.5 * cos(M_PI * (k - k0) / (double)(k1 - k0));
             (*hptilde)->data->data[k] *= w;
             (*hctilde)->data->data[k] *= w;
         }
-         make sure Nyquist frequency is zero
+        /* make sure Nyquist frequency is zero */
         (*hptilde)->data->data[(*hptilde)->data->length - 1] = 0.0;
         (*hctilde)->data->data[(*hctilde)->data->length - 1] = 0.0;
 
-         we want to make sure that this waveform will give something
+        /* we want to make sure that this waveform will give something
          * sensible if it is later transformed into the time domain:
          * to avoid the end of the waveform wrapping around to the beginning,
          * we shift waveform backwards in time and compensate for this
          * shift by adjusting the epoch */
-        tshift = round(tmerge / deltaT) * deltaT; /*integer number of time samples */
+        tshift = round(tmerge / deltaT) * deltaT; /* integer number of time samples */
         for (k = 0; k < (*hptilde)->data->length; ++k) {
             double complex phasefac = cexp(2.0 * M_PI * I * k * deltaF * tshift);
             (*hptilde)->data->data[k] *= phasefac;
             (*hctilde)->data->data[k] *= phasefac;
-        } 
-
-
+        }
         XLALGPSAdd(&(*hptilde)->epoch, tshift);
         XLALGPSAdd(&(*hctilde)->epoch, tshift);
 
