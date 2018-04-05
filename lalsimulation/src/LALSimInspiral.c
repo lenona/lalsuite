@@ -2122,20 +2122,17 @@ int XLALSimInspiralFD(
         k0 = round(fstart / (*hptilde)->deltaF);
         k1 = round(f_min / (*hptilde)->deltaF);
         /* make sure it is zero below fstart */
-        pFile = fopen("waveform_check.txt","w");
         for (k = 0; k < k0; ++k) {
             (*hptilde)->data->data[k] = 0.0;
             (*hctilde)->data->data[k] = 0.0;
-            fprintf (pFile, "%e %e \n",(*hptilde)->data->data[k],(*hctilde)->data->data[k]);
         }
-        fclose(pFile);
-        /* taper between fstart and f_min */
+        /* taper between fstart and f_min
         for ( ; k < k1; ++k) {
             double w = 0.5 - 0.5 * cos(M_PI * (k - k0) / (double)(k1 - k0));
             (*hptilde)->data->data[k] *= w;
             (*hctilde)->data->data[k] *= w;
         }
-        /* make sure Nyquist frequency is zero */
+        /* make sure Nyquist frequency is zero
         (*hptilde)->data->data[(*hptilde)->data->length - 1] = 0.0;
         (*hctilde)->data->data[(*hctilde)->data->length - 1] = 0.0;
 
@@ -2143,8 +2140,8 @@ int XLALSimInspiralFD(
          * sensible if it is later transformed into the time domain:
          * to avoid the end of the waveform wrapping around to the beginning,
          * we shift waveform backwards in time and compensate for this
-         * shift by adjusting the epoch */
-        tshift = round(tmerge / deltaT) * deltaT; /* integer number of time samples */
+         * shift by adjusting the epoch
+        tshift = round(tmerge / deltaT) * deltaT; /* integer number of time samples 
         for (k = 0; k < (*hptilde)->data->length; ++k) {
             double complex phasefac = cexp(2.0 * M_PI * I * k * deltaF * tshift);
             (*hptilde)->data->data[k] *= phasefac;
@@ -2155,34 +2152,34 @@ int XLALSimInspiralFD(
 
     } else if (XLALSimInspiralImplementedTDApproximants(approximant)) {
 
-        /* generate a conditioned waveform in the time domain and Fourier-transform it */
+        /* generate a conditioned waveform in the time domain and Fourier-transform it
 
         REAL8TimeSeries *hplus = NULL;
-        REAL8TimeSeries *hcross = NULL;
+        REAL8TimeSeries *hcross = NULL; */
         REAL8FFTPlan *plan;
 
-        /* generate conditioned waveform in time domain */
+        /* generate conditioned waveform in time domain
         retval = XLALSimInspiralTD(&hplus, &hcross, m1, m2, S1x, S1y, S1z, S2x, S2y, S2z, distance, inclination, phiRef, longAscNodes, eccentricity, meanPerAno, deltaT, f_min, f_ref, LALparams, approximant);
         if (retval < 0)
             XLAL_ERROR(XLAL_EFUNC);
 
-        /* determine chirp length and round up to next power of two */
+        /* determine chirp length and round up to next power of two
         chirplen = hplus->data->length;
         frexp(chirplen, &chirplen_exp);
         chirplen = ldexp(1.0, chirplen_exp);
-        /* frequency resolution */
+        /* frequency resolution
         if (deltaF == 0.0)
             deltaF = 1.0 / (chirplen * hplus->deltaT);
-        else { /* recompute chirplen based on deltaF and f_max */
+        else { /* recompute chirplen based on deltaF and f_max
             size_t n;
             if (deltaF > 1.0 / (chirplen * deltaT))
                 XLAL_PRINT_WARNING("Specified frequency interval of %g Hz is too large for a chirp of duration %g s", deltaF, chirplen * deltaT);
             n = chirplen = round(2.0 * f_max / deltaF);
-            if ((n & (n - 1))) { /* not a power of 2 */
+            if ((n & (n - 1))) { /* not a power of 2
                 /* what do we do here?... we need to change either
                  * f_max or deltaF so that chirplen is a power of 2
-                 * so that the FFT can be done, so choose to change f_max */
-                /* round chirplen up to next power of 2 */
+                 * so that the FFT can be done, so choose to change f_max
+                /* round chirplen up to next power of 2
                 frexp(chirplen, &chirplen_exp);
                 chirplen = ldexp(1.0, chirplen_exp);
                 XLAL_PRINT_WARNING("f_max/deltaF = %g/%g = %g is not a power of two: changing f_max to %g", f_max, deltaF, f_max/deltaF, (chirplen / 2) * deltaF);
@@ -2190,14 +2187,14 @@ int XLALSimInspiralFD(
             }
         }
 
-        /* resize waveforms to the required length */
+        /* resize waveforms to the required length
         XLALResizeREAL8TimeSeries(hplus, hplus->data->length - (size_t) chirplen, (size_t) chirplen);
         XLALResizeREAL8TimeSeries(hcross, hcross->data->length - (size_t) chirplen, (size_t) chirplen);
 
-        /* put the waveform in the frequency domain */
-        /* (the units will correct themselves) */
+        /* put the waveform in the frequency domain
+        /* (the units will correct themselves)
         *hptilde = XLALCreateCOMPLEX16FrequencySeries("FD H_PLUS", &hplus->epoch, 0.0, deltaF, &lalDimensionlessUnit, (size_t) chirplen / 2 + 1);
-        *hctilde = XLALCreateCOMPLEX16FrequencySeries("FD H_CROSS", &hcross->epoch, 0.0, deltaF, &lalDimensionlessUnit, (size_t) chirplen / 2 + 1);
+        *hctilde = XLALCreateCOMPLEX16FrequencySeries("FD H_CROSS", &hcross->epoch, 0.0, deltaF, &lalDimensionlessUnit, (size_t) chirplen / 2 + 1); */
         plan = XLALCreateForwardREAL8FFTPlan((size_t) chirplen, 0);
         XLALREAL8TimeFreqFFT(*hctilde, hcross, plan);
         XLALREAL8TimeFreqFFT(*hptilde, hplus, plan);
