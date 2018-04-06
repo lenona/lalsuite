@@ -2025,7 +2025,8 @@ int XLALSimInspiralFD(
     double chirplen, deltaT;
     int chirplen_exp;
     int retval;
-
+    FILE *fp;
+    
     /* adjust the reference frequency for certain precessing approximants:
      * if that approximate interprets f_ref==0 to be f_min, set f_ref=f_min;
      * otherwise do nothing */
@@ -2127,11 +2128,14 @@ int XLALSimInspiralFD(
             (*hctilde)->data->data[k] = 0.0;
         }
         /* taper between fstart and f_min */
+        fp = fopen("waveform_check.txt","w");
         for ( ; k < k1; ++k) {
             double w = 0.5 - 0.5 * cos(M_PI * (k - k0) / (double)(k1 - k0));
             (*hptilde)->data->data[k] *= w;
             (*hctilde)->data->data[k] *= w;
+            write(fp,(*hptilde)->data->data[k], (*hctilde)->data->data[k]);
         }
+        fclose(fp);
         /* make sure Nyquist frequency is zero */
         (*hptilde)->data->data[(*hptilde)->data->length - 1] = 0.0;
         (*hctilde)->data->data[(*hctilde)->data->length - 1] = 0.0;
