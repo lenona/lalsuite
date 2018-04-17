@@ -2133,7 +2133,7 @@ int XLALSimInspiralFD(
             double w = 0.5 - 0.5 * cos(M_PI * (k - k0) / (double)(k1 - k0));
             (*hptilde)->data->data[k] *= w;
             (*hctilde)->data->data[k] *= w;
-             fprintf(fp, "\t%e\t%e\t%e\t%e\n", creal((*hptilde)->data->data[k]), cimag((*hptilde)->data->data[k]), creal((*hctilde)->data->data[k]), cimag((*hctilde)->data->data[k]))
+            fprintf(fp, "\t%e\t%e\t%e\t%e\n", creal((*hptilde)->data->data[k]), cimag((*hptilde)->data->data[k]), creal((*hctilde)->data->data[k]), cimag((*hctilde)->data->data[k]));
         }
         fclose(fp);
         /* make sure Nyquist frequency is zero */
