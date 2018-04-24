@@ -2134,14 +2134,11 @@ int XLALSimInspiralFD(
             (*hctilde)->data->data[k] = 0.0;
         }
         /* taper between fstart and f_min */
-        fp = fopen("waveform_check.txt","a");
         for ( ; k < k1; ++k) {
             double w = 0.5 - 0.5 * cos(M_PI * (k - k0) / (double)(k1 - k0));
             (*hptilde)->data->data[k] *= w;
             (*hctilde)->data->data[k] *= w;
-            fprintf(fp, "%f\t%e\t%e\t%e\t%e\n",k * (*hptilde)->deltaF, creal((*hptilde)->data->data[k]), cimag((*hptilde)->data->data[k]), creal((*hctilde)->data->data[k]), cimag((*hctilde)->data->data[k]));
         }
-        fclose(fp);
         /* make sure Nyquist frequency is zero */
         (*hptilde)->data->data[(*hptilde)->data->length - 1] = 0.0;
         (*hctilde)->data->data[(*hctilde)->data->length - 1] = 0.0;
@@ -2152,11 +2149,14 @@ int XLALSimInspiralFD(
          * we shift waveform backwards in time and compensate for this
          * shift by adjusting the epoch */
         tshift = round(tmerge / deltaT) * deltaT; /* integer number of time samples */
+        fp = fopen("FDwaveform_check.txt","a");
         for (k = 0; k < (*hptilde)->data->length; ++k) {
             double complex phasefac = cexp(2.0 * M_PI * I * k * deltaF * tshift);
             (*hptilde)->data->data[k] *= phasefac;
             (*hctilde)->data->data[k] *= phasefac;
+            fprintf(fp, "%f\t%e\t%e\t%e\t%e\n",k * (*hptilde)->deltaF, creal((*hptilde)->data->data[k]), cimag((*hptilde)->data->data[k]), creal((*hctilde)->data->data[k]), cimag((*hctilde)->data->data[k]));
         }
+        fclose(fp);
         XLALGPSAdd(&(*hptilde)->epoch, tshift);
         XLALGPSAdd(&(*hctilde)->epoch, tshift);
 
