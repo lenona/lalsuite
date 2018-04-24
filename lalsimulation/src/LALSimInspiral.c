@@ -1786,6 +1786,7 @@ static int XLALSimInspiralTDFromFD(
     double fisco, fstart;
     double s;
     int retval;
+    FILE *fp;
 
     if (!XLALSimInspiralImplementedFDApproximants(approximant))
         XLAL_ERROR(XLAL_EINVAL, "Invalid approximant: not a FD approximant");
@@ -1841,11 +1842,16 @@ static int XLALSimInspiralTDFromFD(
      * shift by adjusting the epoch -- note that XLALSimInspiralFD
      * guarantees that there is extra padding to do this */
     tshift = round(textra / deltaT) * deltaT; /* integer number of samples */
+    fp = fopen("fourier_transform_check.txt","a");
     for (k = 0; k < hptilde->data->length; ++k) {
         double complex phasefac = cexp(2.0 * M_PI * I * k * hptilde->deltaF * tshift);
+        
         hptilde->data->data[k] *= phasefac;
         hctilde->data->data[k] *= phasefac;
+        fprintf(fp, "%f\t%e\t%e\t%e\t%e\n",k * hptilde->deltaF, creal(hptilde->data->data[k]), cimag(hptilde->data->data[k]), creal(hctilde->data->data[k]), cimag(hctilde->data->data[k]));
     }
+    fclose(fp);
+    
     XLALGPSAdd(&hptilde->epoch, tshift);
     XLALGPSAdd(&hctilde->epoch, tshift);
 
